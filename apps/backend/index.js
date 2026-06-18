@@ -3,6 +3,7 @@ import {createServer} from "node:http";
 import mongoose from 'mongoose';
 import cors from "cors"
 import { port } from '../../packages/config/index.js';
+import userRoutes from "./routes/user.routes.js"
 
 const app=express()
 
@@ -24,6 +25,8 @@ app.use(cors());
 const server=createServer(app);
 app.use(express.json({limit:"40kb"}));
 app.use(express.urlencoded({limit:"40kb"}));
+
+app.use("/api/users", userRoutes);
 
 app.get("/home",(req,res)=>{
     return res.json({"hello":"world"})
